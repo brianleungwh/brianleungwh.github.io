@@ -28,6 +28,7 @@ github:
   repo:              github.com/brianleungwh/brianleungwh.github.io
 
 # List of pages
-pages_list:
-  About:'/about'
-  Archive:'/archive'
+pages_list: {
+  'About':'/about',
+  'Archive':'/archive'
+}
