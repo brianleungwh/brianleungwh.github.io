@@ -1,7 +1,3 @@
-{% if site.footer-links.github %}
-  <li><a href="http://github.com/{{ site.footer-links.github }}" target="_blank"><img src="{{ site.baseurl }}/assets/social-icons/GitHub-Mark-32px.png" /></a></li>
-{% endif %}
-
-{% if site.footer-links.linkedin %}
-  <li><a href="http://linkedin.com/in/{{ site.footer-links.linkedin }}" target="_blank"><img src="{{ site.baseurl }}/assets/social-icons/In-Black-34px-TM.png" /></a></li>
-{% endif %}
+{% for link in site.footer-links %}
+  <li><a href="{{ link[1] }}" target="_blank"><img src="{{ site.baseurl }}/assets/social-icons/{{ link[0] }}.png" /></a></li>
+{% endfor %}

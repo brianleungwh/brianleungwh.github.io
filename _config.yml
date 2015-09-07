@@ -30,13 +30,13 @@ github:
 # List of pages
 pages_list: 
   About:             '/about'
-  Archive:           '/archive'
+  Posts:           '/posts'
 
 
 # Include and github icon in the footer
 footer-links:
-  github:             brianleungwh
-  linkedin:           brianleungwh
+  github:             http://github.com/brianleungwh/
+  linkedin:           http://linkedin.com/in/brianleungwh/
 
 # Site Settings
 # excerpt_seperator: ""
