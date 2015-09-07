@@ -36,7 +36,7 @@ pages_list:
 # Include and github icon in the footer
 footer-links:
   github:             brianleungwh
-  # linkedin:           brianleungwh
+  linkedin:           brianleungwh
 
 # Site Settings
 # excerpt_seperator: ""
