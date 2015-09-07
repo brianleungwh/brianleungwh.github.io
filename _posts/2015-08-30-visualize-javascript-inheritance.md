@@ -45,7 +45,7 @@ var circle = new Circle(5, 5, 12);
 {% endhighlight %}
 
 The code above may be presented as the following relationship.
-![Diagram](/assets/images/2015-08-30-visualize-javascript-inheritance/js_inheritance.png)
+![Diagram]({{ site.baseurl }}/assets/images/2015-08-30-visualize-javascript-inheritance/js_inheritance.png)
 
 If we go back to the code, line 25 and 26 is where we setup the prototype chain. For a more in-depth explaination head to the original article. But in short, what line 25 is essentially doing is that it sets `Circle.prototype.__proto__` to be `Shape.prototype`. So if we were to log 
 {% highlight javascript %}
