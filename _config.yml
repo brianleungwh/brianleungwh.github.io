@@ -28,7 +28,15 @@ github:
   repo:              github.com/brianleungwh/brianleungwh.github.io
 
 # List of pages
-pages_list: {
-  'About':'/about',
-  'Archive':'/archive'
-}
+pages_list: 
+  About:             '/about'
+  Archive:           '/archive'
+
+
+# Include and github icon in the footer
+footer-links:
+  github:             brianleungwh
+  # linkedin:           brianleungwh
+
+# Site Settings
+# excerpt_seperator: ""

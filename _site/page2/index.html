@@ -10,7 +10,7 @@
 
   <title>
     
-      Javascript Hoisting &middot; Brian Leung
+      Brian Leung &middot; Personal Website of Brian Leung
     
   </title>
 
@@ -52,10 +52,18 @@
       </header>
 
       <main>
-        <article class="post">
-  <h1 class="post-title">Javascript Hoisting</h1>
-  <time datetime="2015-08-23T00:00:00-07:00" class="post-date">23 Aug 2015</time>
+        <div class="posts">
   
+  <article class="post">
+    <h1 class="post-title">
+      <a href="/2015/08/23/javascript-hoisting/">
+        Javascript Hoisting
+      </a>
+    </h1>
+
+    <time datetime="2015-08-23T00:00:00-07:00" class="post-date">23 Aug 2015</time>
+
+    
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="lineno">1</span> <span class="kd">var</span> <span class="nx">msg</span> <span class="o">=</span> <span class="s1">&#39;JavaScript is awesome&#39;</span><span class="p">;</span>
 <span class="lineno">2</span> <span class="kd">var</span> <span class="nx">fn</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 <span class="lineno">3</span>   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
@@ -112,43 +120,21 @@ Experiment with this piece of code <a href="http://www.pythontutor.com/javascrip
 
 <p>With this in mind, it is generally good practice to declare all your variables at the top of each scope to avoid confusions down the road. For more dedicated readings <a href="http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html" target="_blank">go here</a>.</p>
 
-</article>
+  </article>
+  
+</div>
 
-
-<aside class="related">
-  <h2>Related Posts</h2>
-  <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="/2015/08/30/visualize-javascript-inheritance/">
-            Visualizing JavaScript Classical Inheritance
-            <small><time datetime="2015-08-30T00:00:00-07:00">30 Aug 2015</time></small>
-          </a>
-        </h3>
-      </li>
-    
-  </ul>
-</aside>
-
+<div class="pagination">
+  
+    <span class="pagination-item older">Older</span>
+  
+  
+    <a class="pagination-item newer" href="/">Newer</a>
+  
+</div>
 
 
         
-<!-- Add Disqus comments. -->
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = 'brianleungwh';
-    
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
 
       </main>
 

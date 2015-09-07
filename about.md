@@ -2,5 +2,6 @@
 layout: page
 title: About
 ---
+Hi, I'm Brian.
 
-Hi. I am beginning Hack Reactor on 8/17.
+I am a software developer based in the San Francisco Bay Area.

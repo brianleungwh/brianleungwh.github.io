@@ -4,13 +4,74 @@
  <title>Brian Leung</title>
  <link href="brianleungwh.github.io/atom.xml" rel="self"/>
  <link href="brianleungwh.github.io/"/>
- <updated>2015-08-30T18:12:40-07:00</updated>
+ <updated>2015-09-06T17:24:27-07:00</updated>
  <id>brianleungwh.github.io</id>
  <author>
    <name>Brian Leung</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>Visualizing JavaScript Classical Inheritance</title>
+   <link href="brianleungwh.github.io/2015/08/30/visualize-javascript-inheritance/"/>
+   <updated>2015-08-30T00:00:00-07:00</updated>
+   <id>brianleungwh.github.io/2015/08/30/visualize-javascript-inheritance</id>
+   <content type="html">&lt;p&gt;Being used to Java’s classical inheritance, understanding JavaScript’s version was a challenge for me. Fortunately, &lt;a href=&quot;http://eli.thegreenplace.net/2013/10/22/classical-inheritance-in-javascript-es5&quot;&gt;this article&lt;/a&gt; does a great job on explaining what goes on under the hood and so I have decided to make a diagram out of the code example used there and have this post serve as an extension to it. For viewing conveniences, I have copied and pasted the code below. Notice I have also added two additional lines of code on line 35 and 36 to actually instantiate the two objects that is being defined.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Shape - superclass&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 2&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// x,y: location of shape&amp;#39;s bounding rectangle&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 3&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 4&lt;/span&gt;   &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 5&lt;/span&gt;   &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 6&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 7&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt; 8&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Superclass method&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 9&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;move&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;10&lt;/span&gt;   &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;11&lt;/span&gt;   &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;12&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;13&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Circle - subclass&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;15&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Circle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;16&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// Call constructor of superclass to initialize &lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;17&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// superclass-derived members.&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;18&lt;/span&gt;   &lt;span class=&quot;nx&quot;&gt;Shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;19&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;20&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// Initialize subclass&amp;#39;s own members&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;21&lt;/span&gt;   &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;22&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;23&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;24&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Circle derives from Shape&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;25&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Circle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;26&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Circle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;constructor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Circle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;27&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;28&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Subclass methods. Add them after Circle.prototype &lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;29&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// is created with Object.create&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;30&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Circle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;area&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;31&lt;/span&gt;   &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Math&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;PI&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;32&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;33&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;34&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Creating an instance of Shape and an instance of Circle&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;35&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;shape&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;36&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;circle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Circle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The code above may be presented as the following relationship.
+&lt;img src=&quot;/assets/images/2015-08-30-visualize-javascript-inheritance/js_inheritance.png&quot; alt=&quot;Diagram&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;If we go back to the code, line 25 and 26 is where we setup the prototype chain. For a more in-depth explaination head to the original article. But in short, what line 25 is essentially doing is that it sets &lt;code&gt;Circle.prototype.__proto__&lt;/code&gt; to be &lt;code&gt;Shape.prototype&lt;/code&gt;. So if we were to log&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;Circle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proto__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;it will evaluate to true.&lt;/p&gt;
+
+&lt;p&gt;Let’s say we invoke &lt;code&gt;circle.move()&lt;/code&gt;. JavsScript will first look for a &lt;code&gt;move&lt;/code&gt; method in &lt;code&gt;Circle.prototype&lt;/code&gt;. No &lt;code&gt;move&lt;/code&gt; method found, it will then look in the object where &lt;code&gt;Circle.prototype.__proto__&lt;/code&gt; is delegated to, which in this case we set it to the &lt;code&gt;Shape.prototype&lt;/code&gt; and &lt;code&gt;move&lt;/code&gt; is found there. In a case where JavaScript doesn’t find the method in the superclass, it will look in the &lt;code&gt;Object.prototype&lt;/code&gt; and if the method isn’t found there either, it will throw an error because &lt;code&gt;Object.prototype&lt;/code&gt; is the end of the prototype chain.&lt;/p&gt;
+
+&lt;p&gt;When we assign &lt;code&gt;Circle.prototype&lt;/code&gt; to &lt;code&gt;Shape.prototype&lt;/code&gt; we break the existing &lt;code&gt;Circle.prototype.constructor&lt;/code&gt;. If we eliminate line 36, running &lt;code&gt;circle instanceof Circle&lt;/code&gt; will return false. Line 36 is explcitly restoring that relationship.&lt;/p&gt;
+
+&lt;p&gt;If you would like to dig deeper into JavaScript’s prototype chain you might find this useful: &lt;a href=&quot;http://dmitrysoshnikov.com/ecmascript/javascript-the-core/&quot;&gt;JavaScript. The Core&lt;/a&gt;.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Javascript Hoisting</title>
@@ -53,7 +114,7 @@ Lets take a look at the following example.&lt;/p&gt;
 &lt;span class=&quot;lineno&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
 &lt;span class=&quot;lineno&quot;&gt;11&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Error: undefined is not a function&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;When we invoke &lt;code&gt;test()&lt;/code&gt;, the variable &lt;code&gt;foo&lt;/code&gt; is invisibly hoisted to the top of the local scope and assigned &lt;code&gt;undefined&lt;/code&gt; before execution. Therefore, when we invoke &lt;code&gt;foo()&lt;/code&gt; inside the &lt;code&gt;test&lt;/code&gt; scope in line 6, the interpreter throws an error as &lt;code&gt;foo&lt;/code&gt; is not assigned a value until line 7. Notice I refer to &lt;code&gt;foo&lt;/code&gt; as a variable because anything that takes the form &lt;code&gt;var someName;&lt;/code&gt; is considered a variable declaration. In this case, &lt;code&gt;foo&lt;/code&gt; just so happen to be declared and assgined a value at the same time in line 7 and be assigned to a function. But of course, with JavaScript hoisting, it gets delcared and assigned &lt;code&gt;undefined&lt;/code&gt; before exeution. 
+&lt;p&gt;When we invoke &lt;code&gt;test()&lt;/code&gt;, the variable &lt;code&gt;foo&lt;/code&gt; is invisibly hoisted to the top of the local scope and assigned &lt;code&gt;undefined&lt;/code&gt; before execution. You can imagine this taking place before line 6 but after line 5. Therefore, when we invoke &lt;code&gt;foo()&lt;/code&gt; inside the &lt;code&gt;test&lt;/code&gt; scope in line 6, the interpreter throws an error as &lt;code&gt;foo&lt;/code&gt; is not assigned a value until line 7. Notice I refer to &lt;code&gt;foo&lt;/code&gt; as a variable because anything that takes the form &lt;code&gt;var someName;&lt;/code&gt; is considered a variable declaration. In this case, &lt;code&gt;foo&lt;/code&gt; just so happen to be declared and be assgined to a function at the same time in line 7. But of course, with JavaScript hoisting, it gets delcared and assigned &lt;code&gt;undefined&lt;/code&gt; before exeution. 
 Experiment with this piece of code &lt;a href=&quot;http://www.pythontutor.com/javascript.html#code=var+foo+%3D+function(%29+%7B%0A++console.log(%22outside+foo%22%29%3B%0A%7D%3B%0A%0Avar+test+%3D+function(%29+%7B%0A++foo(%29%3B%0A++var+foo+%3D+function(%29+%7B%0A++++console.log(%22inside+foo%22%29%3B%0A++%7D%0A%7D%3B%0Atest(%29%3B&amp;amp;mode=display&amp;amp;origin=opt-frontend.js&amp;amp;cumulative=false&amp;amp;heapPrimitives=false&amp;amp;textReferences=false&amp;amp;py=js&amp;amp;rawInputLstJSON=%5B%5D&amp;amp;curInstr=0&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Here we are declaring &lt;code&gt;foo&lt;/code&gt; as a function instead of a variable.&lt;/p&gt;
@@ -72,7 +133,7 @@ Experiment with this piece of code &lt;a href=&quot;http://www.pythontutor.com/j
 
 &lt;p&gt;JavaScript logs &lt;code&gt;inside foo&lt;/code&gt; in this case because, as mentioned earlier, with function declaration not only does its name gets hoisted, so does its body. Anything that takes the form &lt;code&gt;function funcName() {};&lt;/code&gt; in JavaScript is interpreted as a function declaration and when they get hoisted, their function definition get hoisted too. Experiement with this piece of code &lt;a href=&quot;http://www.pythontutor.com/javascript.html#code=var+foo+%3D+function(%29+%7B%0A++console.log(%22outside+foo%22%29%3B%0A%7D%3B%0A%0Avar+test+%3D+function(%29+%7B%0A++foo(%29%3B%0A++function+foo(%29+%7B%0A++++console.log(%22inside+foo%22%29%3B%0A++%7D%0A%7D%3B%0Atest(%29%3B+//+inside+foo&amp;amp;mode=display&amp;amp;origin=opt-frontend.js&amp;amp;cumulative=false&amp;amp;heapPrimitives=false&amp;amp;textReferences=false&amp;amp;py=js&amp;amp;rawInputLstJSON=%5B%5D&amp;amp;curInstr=0&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;With this, it is generally good practice to declare all your variables at the top of each scope to avoid confusion. For more dedicated readings &lt;a href=&quot;http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html&quot;&gt;go here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;With this in mind, it is generally good practice to declare all your variables at the top of each scope to avoid confusions down the road. For more dedicated readings &lt;a href=&quot;http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html&quot; target=&quot;_blank&quot;&gt;go here&lt;/a&gt;.&lt;/p&gt;
 </content>
  </entry>
  
