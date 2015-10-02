@@ -15,7 +15,7 @@ Invoking `fn()` will log `JavaScript is awesome`.
 Okay, no surprises.   
 What about this...
 
-{% highlight javascript linenos%}
+{% highlight javascript linenos %}
 var msg = 'JavaScript is awesome';
 var fn = function() {
   msg = 'JavaScript is weird';
@@ -29,7 +29,7 @@ This is called variable hoisting.
 Turns out, in JavaScript, variable and function declarations are hoisted to the top of their *containing scope* before execution time, with function declarations taking priority over variables. When a function declaration gets hoisted, the entire function body will be hoisted as well. Whereas for variables, only the variable name is hoisted and they are assigned `undefined` by the JavaScript interpreter until the actual assignment statement is ran during execution time. 
 Lets take a look at the following example.
 
-{% highlight javascript linenos%}
+{% highlight javascript linenos %}
 var foo = function() {
   console.log("outside foo");
 };

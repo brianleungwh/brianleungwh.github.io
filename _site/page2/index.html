@@ -46,7 +46,7 @@
           
             &nbsp;&nbsp;&nbsp;&nbsp;<small><a href="/about">About</a></small>
           
-            &nbsp;&nbsp;&nbsp;&nbsp;<small><a href="/posts">Posts</a></small>
+            &nbsp;&nbsp;&nbsp;&nbsp;<small><a href="/posts">Archive</a></small>
           
         </h3>
       </header>
@@ -56,69 +56,66 @@
   
   <article class="post">
     <h1 class="post-title">
-      <a href="/2015/08/23/javascript-hoisting/">
-        Javascript Hoisting
+      <a href="/2015/08/30/visualize-javascript-inheritance/">
+        Visualizing JavaScript Classical Inheritance
       </a>
     </h1>
 
-    <time datetime="2015-08-23T00:00:00-07:00" class="post-date">23 Aug 2015</time>
+    <time datetime="2015-08-30T00:00:00-07:00" class="post-date">30 Aug 2015</time>
 
-    
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="lineno">1</span> <span class="kd">var</span> <span class="nx">msg</span> <span class="o">=</span> <span class="s1">&#39;JavaScript is awesome&#39;</span><span class="p">;</span>
-<span class="lineno">2</span> <span class="kd">var</span> <span class="nx">fn</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-<span class="lineno">3</span>   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
-<span class="lineno">4</span> <span class="p">}</span>
-<span class="lineno">5</span> <span class="nx">fn</span><span class="p">();</span></code></pre></div>
+    <p>Being used to Java’s classical inheritance, understanding JavaScript’s version was a challenge for me. Fortunately, <a href="http://eli.thegreenplace.net/2013/10/22/classical-inheritance-in-javascript-es5">this article</a> does a great job on explaining what goes on under the hood and so I have decided to make a diagram out of the code example used there and have this post serve as an extension to it. For viewing conveniences, I have copied and pasted the code below. Notice I have also added two additional lines of code on line 35 and 36 to actually instantiate the two objects that is being defined.</p>
 
-<p>Invoking <code>fn()</code> will log <code>JavaScript is awesome</code>.<br />
-Okay, no surprises. <br />
-What about this…</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="lineno"> 1</span> <span class="c1">// Shape - superclass</span>
+<span class="lineno"> 2</span> <span class="c1">// x,y: location of shape&#39;s bounding rectangle</span>
+<span class="lineno"> 3</span> <span class="kd">function</span> <span class="nx">Shape</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno"> 4</span>   <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
+<span class="lineno"> 5</span>   <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">y</span><span class="p">;</span>
+<span class="lineno"> 6</span> <span class="p">}</span>
+<span class="lineno"> 7</span> 
+<span class="lineno"> 8</span> <span class="c1">// Superclass method</span>
+<span class="lineno"> 9</span> <span class="nx">Shape</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">move</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno">10</span>   <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">+=</span> <span class="nx">x</span><span class="p">;</span>
+<span class="lineno">11</span>   <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">+=</span> <span class="nx">y</span><span class="p">;</span>
+<span class="lineno">12</span> <span class="p">}</span>
+<span class="lineno">13</span> 
+<span class="lineno">14</span> <span class="c1">// Circle - subclass</span>
+<span class="lineno">15</span> <span class="kd">function</span> <span class="nx">Circle</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno">16</span>   <span class="c1">// Call constructor of superclass to initialize </span>
+<span class="lineno">17</span>   <span class="c1">// superclass-derived members.</span>
+<span class="lineno">18</span>   <span class="nx">Shape</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+<span class="lineno">19</span> 
+<span class="lineno">20</span>   <span class="c1">// Initialize subclass&#39;s own members</span>
+<span class="lineno">21</span>   <span class="k">this</span><span class="p">.</span><span class="nx">r</span> <span class="o">=</span> <span class="nx">r</span><span class="p">;</span>
+<span class="lineno">22</span> <span class="p">}</span>
+<span class="lineno">23</span> 
+<span class="lineno">24</span> <span class="c1">// Circle derives from Shape</span>
+<span class="lineno">25</span> <span class="nx">Circle</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">Shape</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span>
+<span class="lineno">26</span> <span class="nx">Circle</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">=</span> <span class="nx">Circle</span><span class="p">;</span>
+<span class="lineno">27</span> 
+<span class="lineno">28</span> <span class="c1">// Subclass methods. Add them after Circle.prototype </span>
+<span class="lineno">29</span> <span class="c1">// is created with Object.create</span>
+<span class="lineno">30</span> <span class="nx">Circle</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">area</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="lineno">31</span>   <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">r</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="p">;</span>
+<span class="lineno">32</span> <span class="p">}</span>
+<span class="lineno">33</span> 
+<span class="lineno">34</span> <span class="c1">// Creating an instance of Shape and an instance of Circle</span>
+<span class="lineno">35</span> <span class="kd">var</span> <span class="nx">shape</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Shape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="lineno">36</span> <span class="kd">var</span> <span class="nx">circle</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Circle</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">);</span></code></pre></div>
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="lineno">1</span> <span class="kd">var</span> <span class="nx">msg</span> <span class="o">=</span> <span class="s1">&#39;JavaScript is awesome&#39;</span><span class="p">;</span>
-<span class="lineno">2</span> <span class="kd">var</span> <span class="nx">fn</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-<span class="lineno">3</span>   <span class="nx">msg</span> <span class="o">=</span> <span class="s1">&#39;JavaScript is weird&#39;</span><span class="p">;</span>
-<span class="lineno">4</span>   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
-<span class="lineno">5</span>   <span class="kd">var</span> <span class="nx">msg</span><span class="p">;</span>
-<span class="lineno">6</span> <span class="p">}</span>
-<span class="lineno">7</span> <span class="nx">fn</span><span class="p">();</span></code></pre></div>
+<p>The code above may be presented as the following relationship.
+<img src="/assets/images/2015-08-30-visualize-javascript-inheritance/js_inheritance.png" alt="Diagram" /></p>
 
-<p>In this case, it will log <code>JavaScript is weird</code>.
-This is called variable hoisting.
-Turns out, in JavaScript, variable and function declarations are hoisted to the top of their <em>containing scope</em> before execution time, with function declarations taking priority over variables. When a function declaration gets hoisted, the entire function body will be hoisted as well. Whereas for variables, only the variable name is hoisted and they are assigned <code>undefined</code> by the JavaScript interpreter until the actual assignment statement is ran during execution time. 
-Lets take a look at the following example.</p>
+<p>If we go back to the code, line 25 and 26 is where we setup the prototype chain. For a more in-depth explaination, you may want to read the original article. But in short, what line 25 is essentially doing is that it sets <code>Circle.prototype.__proto__</code> to be <code>Shape.prototype</code>. So if we were to log</p>
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="lineno"> 1</span> <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-<span class="lineno"> 2</span>   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;outside foo&quot;</span><span class="p">);</span>
-<span class="lineno"> 3</span> <span class="p">};</span>
-<span class="lineno"> 4</span> 
-<span class="lineno"> 5</span> <span class="kd">var</span> <span class="nx">test</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-<span class="lineno"> 6</span>   <span class="nx">foo</span><span class="p">();</span>
-<span class="lineno"> 7</span>   <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-<span class="lineno"> 8</span>     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;inside foo&quot;</span><span class="p">);</span>
-<span class="lineno"> 9</span>   <span class="p">}</span>
-<span class="lineno">10</span> <span class="p">};</span>
-<span class="lineno">11</span> <span class="nx">test</span><span class="p">();</span> <span class="c1">// Error: undefined is not a function</span></code></pre></div>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Circle</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">===</span> <span class="nx">Shape</span><span class="p">.</span><span class="nx">prototype</span></code></pre></div>
 
-<p>When we invoke <code>test()</code>, the variable <code>foo</code> is invisibly hoisted to the top of the local scope and assigned <code>undefined</code> before execution. You can imagine this taking place before line 6 but after line 5. Therefore, when we invoke <code>foo()</code> inside the <code>test</code> scope in line 6, the interpreter throws an error as <code>foo</code> is not assigned a value until line 7. Notice I refer to <code>foo</code> as a variable because anything that takes the form <code>var someName;</code> is considered a variable declaration. In this case, <code>foo</code> just so happen to be declared and be assgined to a function at the same time in line 7. But of course, with JavaScript hoisting, it gets delcared and assigned <code>undefined</code> before exeution. 
-Experiment with this piece of code <a href="http://www.pythontutor.com/javascript.html#code=var+foo+%3D+function(%29+%7B%0A++console.log(%22outside+foo%22%29%3B%0A%7D%3B%0A%0Avar+test+%3D+function(%29+%7B%0A++foo(%29%3B%0A++var+foo+%3D+function(%29+%7B%0A++++console.log(%22inside+foo%22%29%3B%0A++%7D%0A%7D%3B%0Atest(%29%3B&amp;mode=display&amp;origin=opt-frontend.js&amp;cumulative=false&amp;heapPrimitives=false&amp;textReferences=false&amp;py=js&amp;rawInputLstJSON=%5B%5D&amp;curInstr=0" target="_blank">here</a>.</p>
+<p>it will evaluate to true.</p>
 
-<p>Here we are declaring <code>foo</code> as a function instead of a variable.</p>
+<p>Let’s say we invoke <code>circle.move()</code>. JavsScript will first look for a <code>move</code> method in <code>Circle.prototype</code>. No <code>move</code> method found, it will then look in the object where <code>Circle.prototype.__proto__</code> is delegated to, which in this case we set it to the <code>Shape.prototype</code> and <code>move</code> is found there. In a case where JavaScript doesn’t find the method in the superclass, it will look in the <code>Object.prototype</code> and if the method isn’t found there either, it will throw an error because <code>Object.prototype</code> is the end of the prototype chain.</p>
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="lineno"> 1</span> <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-<span class="lineno"> 2</span>   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;outside foo&quot;</span><span class="p">);</span>
-<span class="lineno"> 3</span> <span class="p">};</span>
-<span class="lineno"> 4</span> 
-<span class="lineno"> 5</span> <span class="kd">var</span> <span class="nx">test</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-<span class="lineno"> 6</span>   <span class="nx">foo</span><span class="p">();</span>
-<span class="lineno"> 7</span>   <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
-<span class="lineno"> 8</span>     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;inside foo&quot;</span><span class="p">);</span>
-<span class="lineno"> 9</span>   <span class="p">}</span>
-<span class="lineno">10</span> <span class="p">};</span>
-<span class="lineno">11</span> <span class="nx">test</span><span class="p">();</span> <span class="c1">// inside foo</span></code></pre></div>
+<p>When we assign <code>Circle.prototype</code> to <code>Shape.prototype</code> we break the existing <code>Circle.prototype.constructor</code>. If we eliminate line 36, running <code>circle instanceof Circle</code> will return false. Line 36 is explcitly restoring that relationship.</p>
 
-<p>JavaScript logs <code>inside foo</code> in this case because, as mentioned earlier, with function declaration not only does its name gets hoisted, so does its body. Anything that takes the form <code>function funcName() {};</code> in JavaScript is interpreted as a function declaration and when they get hoisted, their function definition get hoisted too. Experiement with this piece of code <a href="http://www.pythontutor.com/javascript.html#code=var+foo+%3D+function(%29+%7B%0A++console.log(%22outside+foo%22%29%3B%0A%7D%3B%0A%0Avar+test+%3D+function(%29+%7B%0A++foo(%29%3B%0A++function+foo(%29+%7B%0A++++console.log(%22inside+foo%22%29%3B%0A++%7D%0A%7D%3B%0Atest(%29%3B+//+inside+foo&amp;mode=display&amp;origin=opt-frontend.js&amp;cumulative=false&amp;heapPrimitives=false&amp;textReferences=false&amp;py=js&amp;rawInputLstJSON=%5B%5D&amp;curInstr=0" target="_blank">here</a>.</p>
-
-<p>With this in mind, it is generally good practice to declare all your variables at the top of each scope to avoid confusions down the road. For more dedicated readings <a href="http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html" target="_blank">go here</a>.</p>
+<p>If you would like to dig deeper into JavaScript’s prototype chain you might find this useful: <a href="http://dmitrysoshnikov.com/ecmascript/javascript-the-core/">JavaScript. The Core</a>.</p>
 
   </article>
   
@@ -126,7 +123,7 @@ Experiment with this piece of code <a href="http://www.pythontutor.com/javascrip
 
 <div class="pagination">
   
-    <span class="pagination-item older">Older</span>
+    <a class="pagination-item older" href="/page3">Older</a>
   
   
     <a class="pagination-item newer" href="/">Newer</a>
@@ -140,7 +137,7 @@ Experiment with this piece of code <a href="http://www.pythontutor.com/javascrip
 
       <footer class="footer">
         <small>
-          &copy; <time datetime="2015-09-06T21:58:43-07:00">2015</time>. All rights reserved.
+          &copy; <time datetime="2015-10-01T21:27:34-07:00">2015</time>. All rights reserved.
         </small>
         <ul class="social-icons">
         

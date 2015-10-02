@@ -46,7 +46,7 @@
           
             &nbsp;&nbsp;&nbsp;&nbsp;<small><a href="/about">About</a></small>
           
-            &nbsp;&nbsp;&nbsp;&nbsp;<small><a href="/posts">Posts</a></small>
+            &nbsp;&nbsp;&nbsp;&nbsp;<small><a href="/posts">Archive</a></small>
           
         </h3>
       </header>
@@ -97,7 +97,7 @@
 <p>The code above may be presented as the following relationship.
 <img src="/assets/images/2015-08-30-visualize-javascript-inheritance/js_inheritance.png" alt="Diagram" /></p>
 
-<p>If we go back to the code, line 25 and 26 is where we setup the prototype chain. For a more in-depth explaination head to the original article. But in short, what line 25 is essentially doing is that it sets <code>Circle.prototype.__proto__</code> to be <code>Shape.prototype</code>. So if we were to log</p>
+<p>If we go back to the code, line 25 and 26 is where we setup the prototype chain. For a more in-depth explaination, you may want to read the original article. But in short, what line 25 is essentially doing is that it sets <code>Circle.prototype.__proto__</code> to be <code>Shape.prototype</code>. So if we were to log</p>
 
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Circle</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">===</span> <span class="nx">Shape</span><span class="p">.</span><span class="nx">prototype</span></code></pre></div>
 
@@ -115,6 +115,15 @@
 <aside class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2015/09/25/increase-productivity-with-task-runners/">
+            Increase Your Productivity with Task Runners
+            <small><time datetime="2015-09-25T00:00:00-07:00">25 Sep 2015</time></small>
+          </a>
+        </h3>
+      </li>
     
       <li>
         <h3>
@@ -151,7 +160,7 @@
 
       <footer class="footer">
         <small>
-          &copy; <time datetime="2015-09-06T21:58:43-07:00">2015</time>. All rights reserved.
+          &copy; <time datetime="2015-10-01T21:27:34-07:00">2015</time>. All rights reserved.
         </small>
         <ul class="social-icons">
         

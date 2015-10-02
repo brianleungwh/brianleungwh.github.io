@@ -30,7 +30,7 @@ github:
 # List of pages
 pages_list: 
   About:             '/about'
-  Posts:           '/posts'
+  Archive:           '/posts'
 
 
 # Include and github icon in the footer
