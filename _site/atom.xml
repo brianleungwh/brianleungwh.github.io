@@ -4,7 +4,7 @@
  <title>Brian Leung</title>
  <link href="brianleungwh.github.io/atom.xml" rel="self"/>
  <link href="brianleungwh.github.io/"/>
- <updated>2015-10-01T21:49:58-07:00</updated>
+ <updated>2015-10-02T09:46:40-07:00</updated>
  <id>brianleungwh.github.io</id>
  <author>
    <name>Brian Leung</name>
@@ -13,31 +13,38 @@
 
  
  <entry>
-   <title>Increase Your Productivity with Task Runners</title>
+   <title>Increase Our Productivity with Task Runners</title>
    <link href="brianleungwh.github.io/2015/09/25/increase-productivity-with-task-runners/"/>
    <updated>2015-09-25T00:00:00-07:00</updated>
    <id>brianleungwh.github.io/2015/09/25/increase-productivity-with-task-runners</id>
-   <content type="html">&lt;p&gt;During software development, there is often many commands and scripts you want to run before you git commit and push it to github or even deploy. You may want to run tests for your entire stack, and you may also want to run your style checker to make sure you have not violated the style guide. Without task runners, you would probably have to do something like this:&lt;/p&gt;
+   <content type="html">&lt;p&gt;During software development, there are often many commands and scripts we would want to run before we git commit and push it to github or even deploy. We may want to run tests for our entire stack, and we may also want to run our style checker to make sure we have not violated the style guide. Without task runners, we would probably have to do something like this:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;jshint files/to/check
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mocha -R spec path/to/spec
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mocha -R spec path/to/client/spec/*.js
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;and more...
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;and more...&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;While there is nothing wrong with doing this, we can increase our productivity by using something called task runners to run all those commands for us automatically. Two of the most poplular tasks runners for web development are currently Grunt and Gulp, and they are pretty easy to setup considering how much time you could potentially save down the road. For this example, I will demonstrate how you can get gulp setup. Before we dive in, make sure you have &lt;code&gt;npm&lt;/code&gt; installed.&lt;/p&gt;
+&lt;p&gt;While there is nothing wrong with doing this, we can increase our productivity by using something called task runners to run all those commands for us automatically. Two of the most poplular tasks runners for web development are currently Grunt and Gulp, and they are pretty easy to setup considering how much time we could potentially save down the road. For this example, I will demonstrate how to get Gulp setup. Before we dive in, make sure you have &lt;code&gt;npm&lt;/code&gt; installed.&lt;/p&gt;
 
+&lt;h6 id=&quot;installing-gulp-on-our-computer&quot;&gt;Installing Gulp on our computer&lt;/h6&gt;
 &lt;p&gt;To begin, run&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm install -g gulp&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;It doesn’t matter what your current directory is. The &lt;code&gt;-g&lt;/code&gt; flag tells npm to install gulp for you &lt;em&gt;globally&lt;/em&gt; . Then, go to the root of your project repo and run&lt;/p&gt;
+&lt;p&gt;For this step, it doesn’t matter what our current directory is. The &lt;code&gt;-g&lt;/code&gt; flag tells npm to install Gulp for us &lt;em&gt;globally&lt;/em&gt; .&lt;/p&gt;
+
+&lt;h6 id=&quot;installing-gulp-to-our-project&quot;&gt;Installing Gulp to our project&lt;/h6&gt;
+&lt;p&gt;Then, we go to the root of our project repo and run&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm install --save-dev gulp&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;This will add gulp and all it’s dependencies to your &lt;code&gt;node_module&lt;/code&gt; so that you can import it in your gulpfile. Then, you would want to create a &lt;code&gt;gulpfile.js&lt;/code&gt; at the root of your project repo. Note that you can’t name this file anything other than that because when you run &lt;code&gt;gulp&lt;/code&gt;, it looks specifically for this file.&lt;/p&gt;
+&lt;p&gt;This will add Gulp to our &lt;code&gt;package.json&lt;/code&gt; and install all it’s dependencies to our &lt;code&gt;node_module&lt;/code&gt; so that we can &lt;code&gt;require&lt;/code&gt; it in our gulpfile.&lt;/p&gt;
 
-&lt;p&gt;Inside this file, you would want to require your modules. Apart from gulp itself, you would probably want to require modules that facilitate the commands you want gulp to run for you. For example, if your tests are written in mocha, and you client tests use Karma you would want to require their respective gulp plug-in after you npm installed them. Your &lt;code&gt;gulpfile.js&lt;/code&gt; will start off looking like this&lt;/p&gt;
+&lt;h6 id=&quot;setting-up-our-gulpfilejs&quot;&gt;Setting up our Gulpfile.js&lt;/h6&gt;
+&lt;p&gt;Now, we can go ahead and create a &lt;code&gt;gulpfile.js&lt;/code&gt; at the root of our project repo. Note that we can’t name this file anything other than that because when we run &lt;code&gt;gulp&lt;/code&gt; later, it looks specifically for this file.&lt;/p&gt;
+
+&lt;p&gt;Inside this file, we want to &lt;code&gt;require&lt;/code&gt; our modules. Apart from gulp itself, we would want to &lt;code&gt;require&lt;/code&gt; modules that facilitate the commands we want Gulp to run for us. For this example, assuming our tests are written in mocha, and our client tests use Karma, we would want to &lt;code&gt;require&lt;/code&gt; their respective gulp plug-ins after we npm installed them. Our &lt;code&gt;gulpfile.js&lt;/code&gt; will start off looking like this&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;gulp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;gulp&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mocha&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;gulp-mocha&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
@@ -72,7 +79,7 @@
 
 &lt;p&gt;Now with this gulpfile, I can run &lt;code&gt;$ gulp&lt;/code&gt; in my command line and gulp will run all my tests for me under the default task.&lt;/p&gt;
 
-&lt;p&gt;Task runners can do a whole lot more than simply running your tests for you. While I can’t cover all of their capabilities in this post, I hope it helped you in the process of getting setup, or at least motivated you to find out more about them.&lt;/p&gt;
+&lt;p&gt;Task runners can do a whole lot more than simply running our tests for us. While I can’t cover all of their capabilities in this post, I hope it helped you in the process of getting setup, or at least motivated you to find out more about them.&lt;/p&gt;
 </content>
  </entry>
  
@@ -131,7 +138,7 @@
 
 &lt;p&gt;Let’s say we invoke &lt;code&gt;circle.move()&lt;/code&gt;. JavsScript will first look for a &lt;code&gt;move&lt;/code&gt; method in &lt;code&gt;Circle.prototype&lt;/code&gt;. No &lt;code&gt;move&lt;/code&gt; method found, it will then look in the object where &lt;code&gt;Circle.prototype.__proto__&lt;/code&gt; is delegated to, which in this case we set it to the &lt;code&gt;Shape.prototype&lt;/code&gt; and &lt;code&gt;move&lt;/code&gt; is found there. In a case where JavaScript doesn’t find the method in the superclass, it will look in the &lt;code&gt;Object.prototype&lt;/code&gt; and if the method isn’t found there either, it will throw an error because &lt;code&gt;Object.prototype&lt;/code&gt; is the end of the prototype chain.&lt;/p&gt;
 
-&lt;p&gt;When we assign &lt;code&gt;Circle.prototype&lt;/code&gt; to &lt;code&gt;Shape.prototype&lt;/code&gt; we break the existing &lt;code&gt;Circle.prototype.constructor&lt;/code&gt;. If we eliminate line 36, running &lt;code&gt;circle instanceof Circle&lt;/code&gt; will return false. Line 36 is explcitly restoring that relationship.&lt;/p&gt;
+&lt;p&gt;When we assign &lt;code&gt;Circle.prototype&lt;/code&gt; to &lt;code&gt;Shape.prototype&lt;/code&gt; we break the existing &lt;code&gt;Circle.prototype.constructor&lt;/code&gt;. If we eliminate line 26, running &lt;code&gt;circle instanceof Circle&lt;/code&gt; will return false. Line 26 is explcitly restoring that relationship.&lt;/p&gt;
 
 &lt;p&gt;If you would like to dig deeper into JavaScript’s prototype chain you might find this useful: &lt;a href=&quot;http://dmitrysoshnikov.com/ecmascript/javascript-the-core/&quot;&gt;JavaScript. The Core&lt;/a&gt;.&lt;/p&gt;
 </content>
@@ -178,7 +185,7 @@ Lets take a look at the following example.&lt;/p&gt;
 &lt;span class=&quot;lineno&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
 &lt;span class=&quot;lineno&quot;&gt;11&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Error: undefined is not a function&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;When we invoke &lt;code&gt;test()&lt;/code&gt;, the variable &lt;code&gt;foo&lt;/code&gt; is invisibly hoisted to the top of the local scope and assigned &lt;code&gt;undefined&lt;/code&gt; before execution. You can imagine this taking place before line 6 but after line 5. Therefore, when we invoke &lt;code&gt;foo()&lt;/code&gt; inside the &lt;code&gt;test&lt;/code&gt; scope in line 6, the interpreter throws an error as &lt;code&gt;foo&lt;/code&gt; is not assigned a value until line 7. Notice I refer to &lt;code&gt;foo&lt;/code&gt; as a variable because anything that takes the form &lt;code&gt;var someName;&lt;/code&gt; is considered a variable declaration. In this case, &lt;code&gt;foo&lt;/code&gt; just so happen to be declared and be assgined to a function at the same time in line 7. But of course, with JavaScript hoisting, it gets delcared and assigned &lt;code&gt;undefined&lt;/code&gt; before exeution. 
+&lt;p&gt;When we invoke &lt;code&gt;test()&lt;/code&gt;, the variable &lt;code&gt;foo&lt;/code&gt; is invisibly hoisted to the top of the local scope and assigned &lt;code&gt;undefined&lt;/code&gt; before execution. We can imagine this taking place before line 6 but after line 5. Therefore, when we invoke &lt;code&gt;foo()&lt;/code&gt; inside the &lt;code&gt;test&lt;/code&gt; scope in line 6, the interpreter throws an error as &lt;code&gt;foo&lt;/code&gt; is not assigned a value until line 7. Notice I refer to &lt;code&gt;foo&lt;/code&gt; as a variable because anything that takes the form &lt;code&gt;var someName;&lt;/code&gt; is considered a variable declaration. In this case, &lt;code&gt;foo&lt;/code&gt; just so happen to be declared and be assgined to a function at the same time in line 7. But of course, with JavaScript hoisting, it gets delcared and assigned &lt;code&gt;undefined&lt;/code&gt; before exeution. 
 Experiment with this piece of code &lt;a href=&quot;http://www.pythontutor.com/javascript.html#code=var+foo+%3D+function(%29+%7B%0A++console.log(%22outside+foo%22%29%3B%0A%7D%3B%0A%0Avar+test+%3D+function(%29+%7B%0A++foo(%29%3B%0A++var+foo+%3D+function(%29+%7B%0A++++console.log(%22inside+foo%22%29%3B%0A++%7D%0A%7D%3B%0Atest(%29%3B&amp;amp;mode=display&amp;amp;origin=opt-frontend.js&amp;amp;cumulative=false&amp;amp;heapPrimitives=false&amp;amp;textReferences=false&amp;amp;py=js&amp;amp;rawInputLstJSON=%5B%5D&amp;amp;curInstr=0&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Here we are declaring &lt;code&gt;foo&lt;/code&gt; as a function instead of a variable.&lt;/p&gt;
@@ -197,7 +204,7 @@ Experiment with this piece of code &lt;a href=&quot;http://www.pythontutor.com/j
 
 &lt;p&gt;JavaScript logs &lt;code&gt;inside foo&lt;/code&gt; in this case because, as mentioned earlier, with function declaration not only does its name gets hoisted, so does its body. Anything that takes the form &lt;code&gt;function funcName() {};&lt;/code&gt; in JavaScript is interpreted as a function declaration and when they get hoisted, their function definition get hoisted too. Experiement with this piece of code &lt;a href=&quot;http://www.pythontutor.com/javascript.html#code=var+foo+%3D+function(%29+%7B%0A++console.log(%22outside+foo%22%29%3B%0A%7D%3B%0A%0Avar+test+%3D+function(%29+%7B%0A++foo(%29%3B%0A++function+foo(%29+%7B%0A++++console.log(%22inside+foo%22%29%3B%0A++%7D%0A%7D%3B%0Atest(%29%3B+//+inside+foo&amp;amp;mode=display&amp;amp;origin=opt-frontend.js&amp;amp;cumulative=false&amp;amp;heapPrimitives=false&amp;amp;textReferences=false&amp;amp;py=js&amp;amp;rawInputLstJSON=%5B%5D&amp;amp;curInstr=0&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;With this in mind, it is generally good practice to declare all your variables at the top of each scope to avoid confusions down the road. For more dedicated readings &lt;a href=&quot;http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html&quot; target=&quot;_blank&quot;&gt;go here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;With this in mind, it is generally good practice to declare all our variables at the top of each scope to avoid confusions down the road. For more dedicated readings &lt;a href=&quot;http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html&quot; target=&quot;_blank&quot;&gt;go here&lt;/a&gt;.&lt;/p&gt;
 </content>
  </entry>
  

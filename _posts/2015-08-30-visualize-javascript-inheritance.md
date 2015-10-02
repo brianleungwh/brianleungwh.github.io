@@ -55,6 +55,6 @@ Circle.prototype.__proto__ === Shape.prototype
 
 Let's say we invoke `circle.move()`. JavsScript will first look for a `move` method in `Circle.prototype`. No `move` method found, it will then look in the object where `Circle.prototype.__proto__` is delegated to, which in this case we set it to the `Shape.prototype` and `move` is found there. In a case where JavaScript doesn't find the method in the superclass, it will look in the `Object.prototype` and if the method isn't found there either, it will throw an error because `Object.prototype` is the end of the prototype chain.
 
-When we assign `Circle.prototype` to `Shape.prototype` we break the existing `Circle.prototype.constructor`. If we eliminate line 36, running `circle instanceof Circle` will return false. Line 36 is explcitly restoring that relationship.
+When we assign `Circle.prototype` to `Shape.prototype` we break the existing `Circle.prototype.constructor`. If we eliminate line 26, running `circle instanceof Circle` will return false. Line 26 is explcitly restoring that relationship.
 
 If you would like to dig deeper into JavaScript's prototype chain you might find this useful: [JavaScript. The Core](http://dmitrysoshnikov.com/ecmascript/javascript-the-core/).

@@ -105,7 +105,7 @@
 
 <p>Let’s say we invoke <code>circle.move()</code>. JavsScript will first look for a <code>move</code> method in <code>Circle.prototype</code>. No <code>move</code> method found, it will then look in the object where <code>Circle.prototype.__proto__</code> is delegated to, which in this case we set it to the <code>Shape.prototype</code> and <code>move</code> is found there. In a case where JavaScript doesn’t find the method in the superclass, it will look in the <code>Object.prototype</code> and if the method isn’t found there either, it will throw an error because <code>Object.prototype</code> is the end of the prototype chain.</p>
 
-<p>When we assign <code>Circle.prototype</code> to <code>Shape.prototype</code> we break the existing <code>Circle.prototype.constructor</code>. If we eliminate line 36, running <code>circle instanceof Circle</code> will return false. Line 36 is explcitly restoring that relationship.</p>
+<p>When we assign <code>Circle.prototype</code> to <code>Shape.prototype</code> we break the existing <code>Circle.prototype.constructor</code>. If we eliminate line 26, running <code>circle instanceof Circle</code> will return false. Line 26 is explcitly restoring that relationship.</p>
 
 <p>If you would like to dig deeper into JavaScript’s prototype chain you might find this useful: <a href="http://dmitrysoshnikov.com/ecmascript/javascript-the-core/">JavaScript. The Core</a>.</p>
 
@@ -119,7 +119,7 @@
       <li>
         <h3>
           <a href="/2015/09/25/increase-productivity-with-task-runners/">
-            Increase Your Productivity with Task Runners
+            Increase Our Productivity with Task Runners
             <small><time datetime="2015-09-25T00:00:00-07:00">25 Sep 2015</time></small>
           </a>
         </h3>
@@ -160,7 +160,7 @@
 
       <footer class="footer">
         <small>
-          &copy; <time datetime="2015-10-01T21:49:58-07:00">2015</time>. All rights reserved.
+          &copy; <time datetime="2015-10-02T09:46:40-07:00">2015</time>. All rights reserved.
         </small>
         <ul class="social-icons">
         

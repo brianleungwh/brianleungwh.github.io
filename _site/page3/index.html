@@ -99,7 +99,7 @@ Lets take a look at the following example.</p>
 <span class="lineno">10</span> <span class="p">};</span>
 <span class="lineno">11</span> <span class="nx">test</span><span class="p">();</span> <span class="c1">// Error: undefined is not a function</span></code></pre></div>
 
-<p>When we invoke <code>test()</code>, the variable <code>foo</code> is invisibly hoisted to the top of the local scope and assigned <code>undefined</code> before execution. You can imagine this taking place before line 6 but after line 5. Therefore, when we invoke <code>foo()</code> inside the <code>test</code> scope in line 6, the interpreter throws an error as <code>foo</code> is not assigned a value until line 7. Notice I refer to <code>foo</code> as a variable because anything that takes the form <code>var someName;</code> is considered a variable declaration. In this case, <code>foo</code> just so happen to be declared and be assgined to a function at the same time in line 7. But of course, with JavaScript hoisting, it gets delcared and assigned <code>undefined</code> before exeution. 
+<p>When we invoke <code>test()</code>, the variable <code>foo</code> is invisibly hoisted to the top of the local scope and assigned <code>undefined</code> before execution. We can imagine this taking place before line 6 but after line 5. Therefore, when we invoke <code>foo()</code> inside the <code>test</code> scope in line 6, the interpreter throws an error as <code>foo</code> is not assigned a value until line 7. Notice I refer to <code>foo</code> as a variable because anything that takes the form <code>var someName;</code> is considered a variable declaration. In this case, <code>foo</code> just so happen to be declared and be assgined to a function at the same time in line 7. But of course, with JavaScript hoisting, it gets delcared and assigned <code>undefined</code> before exeution. 
 Experiment with this piece of code <a href="http://www.pythontutor.com/javascript.html#code=var+foo+%3D+function(%29+%7B%0A++console.log(%22outside+foo%22%29%3B%0A%7D%3B%0A%0Avar+test+%3D+function(%29+%7B%0A++foo(%29%3B%0A++var+foo+%3D+function(%29+%7B%0A++++console.log(%22inside+foo%22%29%3B%0A++%7D%0A%7D%3B%0Atest(%29%3B&amp;mode=display&amp;origin=opt-frontend.js&amp;cumulative=false&amp;heapPrimitives=false&amp;textReferences=false&amp;py=js&amp;rawInputLstJSON=%5B%5D&amp;curInstr=0" target="_blank">here</a>.</p>
 
 <p>Here we are declaring <code>foo</code> as a function instead of a variable.</p>
@@ -118,7 +118,7 @@ Experiment with this piece of code <a href="http://www.pythontutor.com/javascrip
 
 <p>JavaScript logs <code>inside foo</code> in this case because, as mentioned earlier, with function declaration not only does its name gets hoisted, so does its body. Anything that takes the form <code>function funcName() {};</code> in JavaScript is interpreted as a function declaration and when they get hoisted, their function definition get hoisted too. Experiement with this piece of code <a href="http://www.pythontutor.com/javascript.html#code=var+foo+%3D+function(%29+%7B%0A++console.log(%22outside+foo%22%29%3B%0A%7D%3B%0A%0Avar+test+%3D+function(%29+%7B%0A++foo(%29%3B%0A++function+foo(%29+%7B%0A++++console.log(%22inside+foo%22%29%3B%0A++%7D%0A%7D%3B%0Atest(%29%3B+//+inside+foo&amp;mode=display&amp;origin=opt-frontend.js&amp;cumulative=false&amp;heapPrimitives=false&amp;textReferences=false&amp;py=js&amp;rawInputLstJSON=%5B%5D&amp;curInstr=0" target="_blank">here</a>.</p>
 
-<p>With this in mind, it is generally good practice to declare all your variables at the top of each scope to avoid confusions down the road. For more dedicated readings <a href="http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html" target="_blank">go here</a>.</p>
+<p>With this in mind, it is generally good practice to declare all our variables at the top of each scope to avoid confusions down the road. For more dedicated readings <a href="http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html" target="_blank">go here</a>.</p>
 
   </article>
   
@@ -140,7 +140,7 @@ Experiment with this piece of code <a href="http://www.pythontutor.com/javascrip
 
       <footer class="footer">
         <small>
-          &copy; <time datetime="2015-10-01T21:49:58-07:00">2015</time>. All rights reserved.
+          &copy; <time datetime="2015-10-02T09:46:40-07:00">2015</time>. All rights reserved.
         </small>
         <ul class="social-icons">
         
