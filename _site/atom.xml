@@ -4,7 +4,7 @@
  <title>Brian Leung</title>
  <link href="brianleungwh.github.io/atom.xml" rel="self"/>
  <link href="brianleungwh.github.io/"/>
- <updated>2015-10-02T09:46:40-07:00</updated>
+ <updated>2015-10-04T20:36:48-07:00</updated>
  <id>brianleungwh.github.io</id>
  <author>
    <name>Brian Leung</name>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>Increase Our Productivity with Task Runners</title>
-   <link href="brianleungwh.github.io/2015/09/25/increase-productivity-with-task-runners/"/>
+   <link href="brianleungwh.github.io/car/2015/09/25/increase-productivity-with-task-runners/"/>
    <updated>2015-09-25T00:00:00-07:00</updated>
-   <id>brianleungwh.github.io/2015/09/25/increase-productivity-with-task-runners</id>
+   <id>brianleungwh.github.io/car/2015/09/25/increase-productivity-with-task-runners</id>
    <content type="html">&lt;p&gt;During software development, there are often many commands and scripts we would want to run before we git commit and push it to github or even deploy. We may want to run tests for our entire stack, and we may also want to run our style checker to make sure we have not violated the style guide. Without task runners, we would probably have to do something like this:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;jshint files/to/check
@@ -85,9 +85,9 @@
  
  <entry>
    <title>Visualizing JavaScript Classical Inheritance</title>
-   <link href="brianleungwh.github.io/2015/08/30/visualize-javascript-inheritance/"/>
+   <link href="brianleungwh.github.io/code/2015/08/30/visualize-javascript-inheritance/"/>
    <updated>2015-08-30T00:00:00-07:00</updated>
-   <id>brianleungwh.github.io/2015/08/30/visualize-javascript-inheritance</id>
+   <id>brianleungwh.github.io/code/2015/08/30/visualize-javascript-inheritance</id>
    <content type="html">&lt;p&gt;Being used to Java’s classical inheritance, understanding JavaScript’s version was a challenge for me. Fortunately, &lt;a href=&quot;http://eli.thegreenplace.net/2013/10/22/classical-inheritance-in-javascript-es5&quot;&gt;this article&lt;/a&gt; does a great job on explaining what goes on under the hood and so I have decided to make a diagram out of the code example used there and have this post serve as an extension to it. For viewing conveniences, I have copied and pasted the code below. Notice I have also added two additional lines of code on line 35 and 36 to actually instantiate the two objects that is being defined.&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Shape - superclass&lt;/span&gt;
@@ -146,9 +146,9 @@
  
  <entry>
    <title>Javascript Hoisting</title>
-   <link href="brianleungwh.github.io/2015/08/23/javascript-hoisting/"/>
+   <link href="brianleungwh.github.io/code/2015/08/23/javascript-hoisting/"/>
    <updated>2015-08-23T00:00:00-07:00</updated>
-   <id>brianleungwh.github.io/2015/08/23/javascript-hoisting</id>
+   <id>brianleungwh.github.io/code/2015/08/23/javascript-hoisting</id>
    <content type="html">
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;JavaScript is awesome&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;

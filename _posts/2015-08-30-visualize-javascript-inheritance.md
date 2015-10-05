@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Visualizing JavaScript Classical Inheritance
+category: code
 comments: True
 ---
 Being used to Java's classical inheritance, understanding JavaScript's version was a challenge for me. Fortunately, [this article](http://eli.thegreenplace.net/2013/10/22/classical-inheritance-in-javascript-es5) does a great job on explaining what goes on under the hood and so I have decided to make a diagram out of the code example used there and have this post serve as an extension to it. For viewing conveniences, I have copied and pasted the code below. Notice I have also added two additional lines of code on line 35 and 36 to actually instantiate the two objects that is being defined.

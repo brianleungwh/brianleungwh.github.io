@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Increase Our Productivity with Task Runners
+category: car
 comments: true
 ---
 During software development, there are often many commands and scripts we would want to run before we git commit and push it to github or even deploy. We may want to run tests for our entire stack, and we may also want to run our style checker to make sure we have not violated the style guide. Without task runners, we would probably have to do something like this:

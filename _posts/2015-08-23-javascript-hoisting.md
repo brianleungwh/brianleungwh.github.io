@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Javascript Hoisting
+category: code
 comments: True
 ---
 {% highlight javascript linenos %}
