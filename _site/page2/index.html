@@ -56,66 +56,76 @@
   
   <article class="post">
     <h1 class="post-title">
-      <a href="/2015/08/30/visualize-javascript-inheritance/">
-        Visualizing JavaScript Classical Inheritance
+      <a href="/2015/09/25/increase-productivity-with-task-runners/">
+        Increase Our Productivity with Task Runners
       </a>
     </h1>
 
-    <time datetime="2015-08-30T00:00:00-07:00" class="post-date">30 Aug 2015</time>
+    <time datetime="2015-09-25T00:00:00-07:00" class="post-date">25 Sep 2015</time>
 
-    <p>Being used to Java’s classical inheritance, understanding JavaScript’s version was a challenge for me. Fortunately, <a href="http://eli.thegreenplace.net/2013/10/22/classical-inheritance-in-javascript-es5">this article</a> does a great job on explaining what goes on under the hood and so I have decided to make a diagram out of the code example used there and have this post serve as an extension to it. For viewing conveniences, I have copied and pasted the code below. Notice I have also added two additional lines of code on line 35 and 36 to actually instantiate the two objects that is being defined.</p>
+    <p>During software development, there are often many commands and scripts we would want to run before we git commit and push it to github or even deploy. We may want to run tests for our entire stack, and we may also want to run our style checker to make sure we have not violated the style guide. Without task runners, we would probably have to do something like this:</p>
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="lineno"> 1</span> <span class="c1">// Shape - superclass</span>
-<span class="lineno"> 2</span> <span class="c1">// x,y: location of shape&#39;s bounding rectangle</span>
-<span class="lineno"> 3</span> <span class="kd">function</span> <span class="nx">Shape</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
-<span class="lineno"> 4</span>   <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
-<span class="lineno"> 5</span>   <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">y</span><span class="p">;</span>
-<span class="lineno"> 6</span> <span class="p">}</span>
-<span class="lineno"> 7</span> 
-<span class="lineno"> 8</span> <span class="c1">// Superclass method</span>
-<span class="lineno"> 9</span> <span class="nx">Shape</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">move</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
-<span class="lineno">10</span>   <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">+=</span> <span class="nx">x</span><span class="p">;</span>
-<span class="lineno">11</span>   <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">+=</span> <span class="nx">y</span><span class="p">;</span>
-<span class="lineno">12</span> <span class="p">}</span>
-<span class="lineno">13</span> 
-<span class="lineno">14</span> <span class="c1">// Circle - subclass</span>
-<span class="lineno">15</span> <span class="kd">function</span> <span class="nx">Circle</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span> <span class="p">{</span>
-<span class="lineno">16</span>   <span class="c1">// Call constructor of superclass to initialize </span>
-<span class="lineno">17</span>   <span class="c1">// superclass-derived members.</span>
-<span class="lineno">18</span>   <span class="nx">Shape</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
-<span class="lineno">19</span> 
-<span class="lineno">20</span>   <span class="c1">// Initialize subclass&#39;s own members</span>
-<span class="lineno">21</span>   <span class="k">this</span><span class="p">.</span><span class="nx">r</span> <span class="o">=</span> <span class="nx">r</span><span class="p">;</span>
-<span class="lineno">22</span> <span class="p">}</span>
-<span class="lineno">23</span> 
-<span class="lineno">24</span> <span class="c1">// Circle derives from Shape</span>
-<span class="lineno">25</span> <span class="nx">Circle</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">Shape</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span>
-<span class="lineno">26</span> <span class="nx">Circle</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">=</span> <span class="nx">Circle</span><span class="p">;</span>
-<span class="lineno">27</span> 
-<span class="lineno">28</span> <span class="c1">// Subclass methods. Add them after Circle.prototype </span>
-<span class="lineno">29</span> <span class="c1">// is created with Object.create</span>
-<span class="lineno">30</span> <span class="nx">Circle</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">area</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-<span class="lineno">31</span>   <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">r</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="p">;</span>
-<span class="lineno">32</span> <span class="p">}</span>
-<span class="lineno">33</span> 
-<span class="lineno">34</span> <span class="c1">// Creating an instance of Shape and an instance of Circle</span>
-<span class="lineno">35</span> <span class="kd">var</span> <span class="nx">shape</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Shape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
-<span class="lineno">36</span> <span class="kd">var</span> <span class="nx">circle</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Circle</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">);</span></code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>jshint files/to/check
+<span class="nv">$ </span>mocha -R spec path/to/client/spec/*.js
+<span class="nv">$ </span>npm <span class="nb">test</span>
+<span class="nv">$ </span>and more...
+<span class="nv">$ </span>and more...</code></pre></div>
 
-<p>The code above may be presented as the following relationship.
-<img src="/assets/images/2015-08-30-visualize-javascript-inheritance/js_inheritance.png" alt="Diagram" /></p>
+<p>While there is nothing wrong with doing this, we can increase our productivity by using something called task runners to run all those commands for us automatically. Two of the most poplular tasks runners for web development are currently Grunt and Gulp, and they are pretty easy to setup considering how much time we could potentially save down the road. For this example, I will demonstrate how to get Gulp setup. Before we dive in, make sure you have <code>npm</code> installed.</p>
 
-<p>If we go back to the code, line 25 and 26 is where we setup the prototype chain. For a more in-depth explaination, you may want to read the original article. But in short, what line 25 is essentially doing is that it sets <code>Circle.prototype.__proto__</code> to be <code>Shape.prototype</code>. So if we were to log</p>
+<h6 id="installing-gulp-on-our-computer">Installing Gulp on our computer</h6>
+<p>To begin, run</p>
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Circle</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">===</span> <span class="nx">Shape</span><span class="p">.</span><span class="nx">prototype</span></code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>npm install -g gulp</code></pre></div>
 
-<p>it will evaluate to true.</p>
+<p>For this step, it doesn’t matter what our current directory is. The <code>-g</code> flag tells npm to install Gulp for us <em>globally</em> .</p>
 
-<p>Let’s say we invoke <code>circle.move()</code>. JavsScript will first look for a <code>move</code> method in <code>Circle.prototype</code>. No <code>move</code> method found, it will then look in the object where <code>Circle.prototype.__proto__</code> is delegated to, which in this case we set it to the <code>Shape.prototype</code> and <code>move</code> is found there. In a case where JavaScript doesn’t find the method in the superclass, it will look in the <code>Object.prototype</code> and if the method isn’t found there either, it will throw an error because <code>Object.prototype</code> is the end of the prototype chain.</p>
+<h6 id="installing-gulp-to-our-project">Installing Gulp to our project</h6>
+<p>Then, we go to the root of our project repo and run</p>
 
-<p>When we assign <code>Circle.prototype</code> to <code>Shape.prototype</code> we break the existing <code>Circle.prototype.constructor</code>. If we eliminate line 26, running <code>circle instanceof Circle</code> will return false. Line 26 is explcitly restoring that relationship.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>npm install --save-dev gulp</code></pre></div>
 
-<p>If you would like to dig deeper into JavaScript’s prototype chain you might find this useful: <a href="http://dmitrysoshnikov.com/ecmascript/javascript-the-core/">JavaScript. The Core</a>.</p>
+<p>This will add Gulp to our <code>package.json</code> and install all it’s dependencies to our <code>node_module</code> so that we can <code>require</code> it in our gulpfile.</p>
+
+<h6 id="setting-up-our-gulpfilejs">Setting up our Gulpfile.js</h6>
+<p>Now, we can go ahead and create a <code>gulpfile.js</code> at the root of our project repo. Note that we can’t name this file anything other than that because when we run <code>gulp</code> later, it looks specifically for this file.</p>
+
+<p>Inside this file, we want to <code>require</code> our modules. Apart from gulp itself, we would want to <code>require</code> modules that facilitate the commands we want Gulp to run for us. For this example, assuming our tests are written in mocha, and our client tests use Karma, we would want to <code>require</code> their respective gulp plug-ins after we npm installed them. Our <code>gulpfile.js</code> will start off looking like this</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">gulp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;gulp&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">mocha</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;gulp-mocha&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">Server</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;karma&#39;</span><span class="p">).</span><span class="nx">Server</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">jshint</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;gulp-jshint&#39;</span><span class="p">);</span>
+
+<span class="c1">// specifications for running server-side tests</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="s1">&#39;server-tests&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="s1">&#39;path/to/server/specs/*.js&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">read</span><span class="o">:</span> <span class="kc">false</span><span class="p">})</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">mocha</span><span class="p">({</span><span class="nx">reporter</span><span class="o">:</span> <span class="s1">&#39;spec&#39;</span><span class="p">}));</span>
+<span class="p">});</span>
+
+<span class="c1">// specifications for running client-side tests</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="s1">&#39;client-tests&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">new</span> <span class="nx">Server</span><span class="p">({</span>
+    <span class="nx">configFile</span><span class="o">:</span> <span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/karma.conf.js&#39;</span><span class="p">,</span>
+    <span class="nx">singleRun</span><span class="o">:</span> <span class="kc">true</span>
+  <span class="p">},</span> <span class="nx">done</span><span class="p">).</span><span class="nx">start</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="c1">// specifications for jshint linter</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="s1">&#39;linter&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">src</span><span class="p">([</span><span class="s1">&#39;path/to/client/files/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;path/to/server/files/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;path/to/spec/files/*.js&#39;</span><span class="p">])</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">jshint</span><span class="p">())</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">jshint</span><span class="p">.</span><span class="nx">reporter</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">))</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">jshint</span><span class="p">.</span><span class="nx">reporter</span><span class="p">(</span><span class="s1">&#39;fail&#39;</span><span class="p">));</span>
+<span class="p">});</span>
+
+<span class="c1">// registering default task to run linter, server-tests </span>
+<span class="c1">// and client-tests in such order</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;linter&#39;</span><span class="p">,</span> <span class="s1">&#39;server-tests&#39;</span><span class="p">,</span> <span class="s1">&#39;client-tests&#39;</span><span class="p">]);</span></code></pre></div>
+
+<p>Now with this gulpfile, I can run <code>$ gulp</code> in my command line and gulp will run all my tests for me under the default task.</p>
+
+<p>Task runners can do a whole lot more than simply running our tests for us. While I can’t cover all of their capabilities in this post, I hope it helped you in the process of getting setup, or at least motivated you to find out more about them.</p>
 
   </article>
   
@@ -137,7 +147,7 @@
 
       <footer class="footer">
         <small>
-          &copy; <time datetime="2015-10-04T20:41:03-07:00">2015</time>. All rights reserved.
+          &copy; <time datetime="2015-10-23T16:44:00-07:00">2015</time>. All rights reserved.
         </small>
         <ul class="social-icons">
         

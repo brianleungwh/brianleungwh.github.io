@@ -10,7 +10,7 @@
 
   <title>
     
-      Brian Leung &middot; Personal Website of Brian Leung
+      Increase test modularity by using SinonJS &middot; Brian Leung
     
   </title>
 
@@ -52,18 +52,10 @@
       </header>
 
       <main>
-        <div class="posts">
-  
-  <article class="post">
-    <h1 class="post-title">
-      <a href="/2015/10/20/increase-test-modularity-with-sinon/">
-        Increase test modularity by using SinonJS
-      </a>
-    </h1>
-
-    <time datetime="2015-10-20T00:00:00-07:00" class="post-date">20 Oct 2015</time>
-
-    <p>I was recently working on an API server that is backed by a <code>mysql</code> database and my team had decided to use <a href="http://sequelize.readthedocs.org/en/latest/">Sequelize</a> as our ORM. I wanted to write unit tests for the API server but I don’t necessary want to have the test to actually interact with the live database server that is running on my local machine. After considering setting up a seperate database that is dedicated for testing, I have decided to use <a href="http://sinonjs.org/docs/#stubs">SinonJS</a> and simply <em>stub</em> the query methods in my tests. This way, I don’t even need to worry about wiping the tables in my database when running test repeatedly. On top of that, having standalone tests is always better than having tests tightly coupled with external resources.</p>
+        <article class="post">
+  <h1 class="post-title">Increase test modularity by using SinonJS</h1>
+  <time datetime="2015-10-20T00:00:00-07:00" class="post-date">20 Oct 2015</time>
+  <p>I was recently working on an API server that is backed by a <code>mysql</code> database and my team had decided to use <a href="http://sequelize.readthedocs.org/en/latest/">Sequelize</a> as our ORM. I wanted to write unit tests for the API server but I don’t necessary want to have the test to actually interact with the live database server that is running on my local machine. After considering setting up a seperate database that is dedicated for testing, I have decided to use <a href="http://sinonjs.org/docs/#stubs">SinonJS</a> and simply <em>stub</em> the query methods in my tests. This way, I don’t even need to worry about wiping the tables in my database when running test repeatedly. On top of that, having standalone tests is always better than having tests tightly coupled with external resources.</p>
 
 <p>Here is the code snippet of my test for the methods in a module called <code>userController</code>. Note that userController would normally interact with the database through the built-in Sequelize model methods. To avoid that, I am stubbing the build-in method <code>User.create</code> when creating a new user.</p>
 
@@ -135,21 +127,61 @@
 <span class="p">});</span></code></pre></div>
 
 
-  </article>
-  
-</div>
+</article>
 
-<div class="pagination">
-  
-    <a class="pagination-item older" href="/page2">Older</a>
-  
-  
-    <span class="pagination-item newer">Newer</span>
-  
-</div>
+
+<aside class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2015/09/25/increase-productivity-with-task-runners/">
+            Increase Our Productivity with Task Runners
+            <small><time datetime="2015-09-25T00:00:00-07:00">25 Sep 2015</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2015/08/30/visualize-javascript-inheritance/">
+            Visualizing JavaScript Classical Inheritance
+            <small><time datetime="2015-08-30T00:00:00-07:00">30 Aug 2015</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2015/08/23/javascript-hoisting/">
+            Javascript Hoisting
+            <small><time datetime="2015-08-23T00:00:00-07:00">23 Aug 2015</time></small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</aside>
+
 
 
         
+<!-- Add Disqus comments. -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = 'brianleungwh';
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
 
       </main>
 
