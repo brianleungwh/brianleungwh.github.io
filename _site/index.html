@@ -63,12 +63,13 @@
 
     <time datetime="2015-10-20T00:00:00-07:00" class="post-date">20 Oct 2015</time>
 
-    <p>I was recently working on an API server that is backed by a <code>mysql</code> database and my team had decided to use <a href="http://sequelize.readthedocs.org/en/latest/">Sequelize</a> as our ORM. I wanted to write unit tests for the API server but I don’t necessary want to have the test to actually interact with the live database server that is running on my local machine. After considering setting up a seperate database that is dedicated for testing, I have decided to use <a href="http://sinonjs.org/docs/#stubs">SinonJS</a> and simply <em>stub</em> the query methods in my tests. This way, I don’t even need to worry about wiping the tables in my database when running test repeatedly. On top of that, having standalone tests is always better than having tests tightly coupled with external resources.</p>
+    <p>I was recently working on an Express server with a <code>mysql</code> database and we have decided to use <a href="http://sequelize.readthedocs.org/en/latest/">Sequelize</a> as our ORM. I wanted to write unit tests for the API server but I don’t necessary want to have the test to actually interact with the live database server that is running on my local machine during development. After considering setting up a seperate database that is dedicated for testing, I have decided to use <a href="http://sinonjs.org/docs/#stubs">SinonJS</a> and  <code>stub</code> the <code>sequelize</code> methods that inserts data into the database. This way, I don’t have to worry about wiping the tables in my database when running tests consecutively. On top of that, having standalone tests is always better than having tests that are tightly coupled with external resources.</p>
 
-<p>Here is the code snippet of my test for the methods in a module called <code>userController</code>. Note that userController would normally interact with the database through the built-in Sequelize model methods. To avoid that, I am stubbing the build-in method <code>User.create</code> when creating a new user.</p>
+<p>Here is the code snippet of my test for the methods in a module called <code>userController</code>. Note that <code>userController</code> would normally create a new user by invoking <code>sequeqlize</code>’s <code>Model.create()</code> method to insert a new user instance to the database. To avoid that, I am stubbing the method <code>User.create()</code> when creating a new user.</p>
 
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// userControllerSpec.js</span>
 
+<span class="c1">// Requiring all test dependencies</span>
 <span class="kd">var</span> <span class="nx">expect</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;chai&#39;</span><span class="p">).</span><span class="nx">expect</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">userController</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../user/userController&#39;</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">sinon</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;sinon&#39;</span><span class="p">);</span>
@@ -94,14 +95,18 @@
   <span class="p">});</span>
 
   <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should create a new user&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Stubbing the sequeqlize model built-in create method</span>
-    <span class="c1">// to prevent acutally creating a new model instance</span>
+    <span class="c1">// Stubbing the User.create() method</span>
+    <span class="c1">// Since User.create() will return a promise and pass </span>
+    <span class="c1">// in the newly created model instances to the resolve </span>
+    <span class="c1">// function upon successfully inserting it to the database, </span>
+    <span class="c1">// we will have the stub do the same to mock such behavior</span>
     <span class="nx">userStub</span> <span class="o">=</span> <span class="nx">sinon</span><span class="p">.</span><span class="nx">stub</span><span class="p">(</span><span class="nx">User</span><span class="p">,</span> <span class="s1">&#39;create&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">newUser</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">resolve</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">resolve</span><span class="p">(</span><span class="nx">newUser</span><span class="p">);</span>
       <span class="p">});</span>
     <span class="p">});</span>
 
+    <span class="c1">// Actual test for registering a new user</span>
     <span class="nx">userController</span><span class="p">.</span><span class="nx">registerNewUser</span><span class="p">(</span><span class="nx">testUser</span><span class="p">)</span>
       <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">user</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">expect</span><span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">email</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">testUser</span><span class="p">.</span><span class="nx">email</span><span class="p">);</span>
@@ -111,10 +116,12 @@
   <span class="p">});</span>
 
   <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should not create the same user twice&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Here we are having the stub throw an error because </span>
-    <span class="c1">// we are pretending that the model instance for testUser has</span>
-    <span class="c1">// already been created and inserted to the database </span>
-    <span class="c1">// by Sequelize</span>
+    <span class="c1">// Since users must be unique in our database, we</span>
+    <span class="c1">// are having the stub throw an error to simulate</span>
+    <span class="c1">// the effect that the model instance for testUser has</span>
+    <span class="c1">// already been created and inserted, as this is what</span>
+    <span class="c1">// sequeqlize would do if we try to create new instance</span>
+    <span class="c1">// duplicates</span>
     <span class="nx">userStub</span> <span class="o">=</span> <span class="nx">sinon</span><span class="p">.</span><span class="nx">stub</span><span class="p">(</span><span class="nx">User</span><span class="p">,</span> <span class="s1">&#39;create&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">newUser</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">();</span>
@@ -155,7 +162,7 @@
 
       <footer class="footer">
         <small>
-          &copy; <time datetime="2015-10-23T16:44:00-07:00">2015</time>. All rights reserved.
+          &copy; <time datetime="2015-10-25T21:23:49-07:00">2015</time>. All rights reserved.
         </small>
         <ul class="social-icons">
         

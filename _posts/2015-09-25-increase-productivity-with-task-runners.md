@@ -11,7 +11,7 @@ $ npm test
 $ and more...
 $ and more...
 {% endhighlight %}
-While there is nothing wrong with doing this, we can increase our productivity by using something called task runners to run all those commands for us automatically. Two of the most poplular tasks runners for web development are currently Grunt and Gulp, and they are pretty easy to setup considering how much time we could potentially save down the road. For this example, I will demonstrate how to get Gulp setup. Before we dive in, make sure you have `npm` installed.
+While there is nothing wrong with doing this, we can increase our productivity by utilizing something called task runners to run all those commands for us automatically. Two of the most poplular tasks runners for web development are currently Grunt and Gulp, and they are pretty easy to setup considering how much time we could potentially save down the road. For this example, I will demonstrate how to get Gulp setup. Before we dive in, make sure you have `npm` installed.
 
 ###### Installing Gulp on our computer
 To begin, run

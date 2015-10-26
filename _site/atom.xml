@@ -4,7 +4,7 @@
  <title>Brian Leung</title>
  <link href="brianleungwh.github.io/atom.xml" rel="self"/>
  <link href="brianleungwh.github.io/"/>
- <updated>2015-10-23T16:44:00-07:00</updated>
+ <updated>2015-10-25T21:23:49-07:00</updated>
  <id>brianleungwh.github.io</id>
  <author>
    <name>Brian Leung</name>
@@ -17,12 +17,13 @@
    <link href="brianleungwh.github.io/2015/10/20/increase-test-modularity-with-sinon/"/>
    <updated>2015-10-20T00:00:00-07:00</updated>
    <id>brianleungwh.github.io/2015/10/20/increase-test-modularity-with-sinon</id>
-   <content type="html">&lt;p&gt;I was recently working on an API server that is backed by a &lt;code&gt;mysql&lt;/code&gt; database and my team had decided to use &lt;a href=&quot;http://sequelize.readthedocs.org/en/latest/&quot;&gt;Sequelize&lt;/a&gt; as our ORM. I wanted to write unit tests for the API server but I don’t necessary want to have the test to actually interact with the live database server that is running on my local machine. After considering setting up a seperate database that is dedicated for testing, I have decided to use &lt;a href=&quot;http://sinonjs.org/docs/#stubs&quot;&gt;SinonJS&lt;/a&gt; and simply &lt;em&gt;stub&lt;/em&gt; the query methods in my tests. This way, I don’t even need to worry about wiping the tables in my database when running test repeatedly. On top of that, having standalone tests is always better than having tests tightly coupled with external resources.&lt;/p&gt;
+   <content type="html">&lt;p&gt;I was recently working on an Express server with a &lt;code&gt;mysql&lt;/code&gt; database and we have decided to use &lt;a href=&quot;http://sequelize.readthedocs.org/en/latest/&quot;&gt;Sequelize&lt;/a&gt; as our ORM. I wanted to write unit tests for the API server but I don’t necessary want to have the test to actually interact with the live database server that is running on my local machine during development. After considering setting up a seperate database that is dedicated for testing, I have decided to use &lt;a href=&quot;http://sinonjs.org/docs/#stubs&quot;&gt;SinonJS&lt;/a&gt; and  &lt;code&gt;stub&lt;/code&gt; the &lt;code&gt;sequelize&lt;/code&gt; methods that inserts data into the database. This way, I don’t have to worry about wiping the tables in my database when running tests consecutively. On top of that, having standalone tests is always better than having tests that are tightly coupled with external resources.&lt;/p&gt;
 
-&lt;p&gt;Here is the code snippet of my test for the methods in a module called &lt;code&gt;userController&lt;/code&gt;. Note that userController would normally interact with the database through the built-in Sequelize model methods. To avoid that, I am stubbing the build-in method &lt;code&gt;User.create&lt;/code&gt; when creating a new user.&lt;/p&gt;
+&lt;p&gt;Here is the code snippet of my test for the methods in a module called &lt;code&gt;userController&lt;/code&gt;. Note that &lt;code&gt;userController&lt;/code&gt; would normally create a new user by invoking &lt;code&gt;sequeqlize&lt;/code&gt;’s &lt;code&gt;Model.create()&lt;/code&gt; method to insert a new user instance to the database. To avoid that, I am stubbing the method &lt;code&gt;User.create()&lt;/code&gt; when creating a new user.&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// userControllerSpec.js&lt;/span&gt;
 
+&lt;span class=&quot;c1&quot;&gt;// Requiring all test dependencies&lt;/span&gt;
 &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;chai&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;userController&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;../user/userController&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sinon&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;sinon&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
@@ -48,14 +49,18 @@
   &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
 
   &lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;should create a new user&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;done&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// Stubbing the sequeqlize model built-in create method&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// to prevent acutally creating a new model instance&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Stubbing the User.create() method&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Since User.create() will return a promise and pass &lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// in the newly created model instances to the resolve &lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// function upon successfully inserting it to the database, &lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// we will have the stub do the same to mock such behavior&lt;/span&gt;
     &lt;span class=&quot;nx&quot;&gt;userStub&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sinon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;stub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;create&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;newUser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
       &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;nx&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;newUser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
       &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
 
+    &lt;span class=&quot;c1&quot;&gt;// Actual test for registering a new user&lt;/span&gt;
     &lt;span class=&quot;nx&quot;&gt;userController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;registerNewUser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;testUser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
       &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;equal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;testUser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
@@ -65,10 +70,12 @@
   &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
 
   &lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;should not create the same user twice&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;done&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// Here we are having the stub throw an error because &lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// we are pretending that the model instance for testUser has&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// already been created and inserted to the database &lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// by Sequelize&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Since users must be unique in our database, we&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// are having the stub throw an error to simulate&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// the effect that the model instance for testUser has&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// already been created and inserted, as this is what&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// sequeqlize would do if we try to create new instance&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// duplicates&lt;/span&gt;
     &lt;span class=&quot;nx&quot;&gt;userStub&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sinon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;stub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;create&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;newUser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
       &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;reject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
@@ -104,7 +111,7 @@
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;and more...
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;and more...&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;While there is nothing wrong with doing this, we can increase our productivity by using something called task runners to run all those commands for us automatically. Two of the most poplular tasks runners for web development are currently Grunt and Gulp, and they are pretty easy to setup considering how much time we could potentially save down the road. For this example, I will demonstrate how to get Gulp setup. Before we dive in, make sure you have &lt;code&gt;npm&lt;/code&gt; installed.&lt;/p&gt;
+&lt;p&gt;While there is nothing wrong with doing this, we can increase our productivity by utilizing something called task runners to run all those commands for us automatically. Two of the most poplular tasks runners for web development are currently Grunt and Gulp, and they are pretty easy to setup considering how much time we could potentially save down the road. For this example, I will demonstrate how to get Gulp setup. Before we dive in, make sure you have &lt;code&gt;npm&lt;/code&gt; installed.&lt;/p&gt;
 
 &lt;h6 id=&quot;installing-gulp-on-our-computer&quot;&gt;Installing Gulp on our computer&lt;/h6&gt;
 &lt;p&gt;To begin, run&lt;/p&gt;
