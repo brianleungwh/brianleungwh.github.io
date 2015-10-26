@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Increase test modularity by using SinonJS
+title: Increase Test Modularity by Using SinonJS
 comments: True
 ---
 I was recently working on an Express server with a `mysql` database and we have decided to use [Sequelize](http://sequelize.readthedocs.org/en/latest/) as our ORM. I wanted to write unit tests for the API server but I don't necessary want to have the test to actually interact with the live database server that is running on my local machine during development. After considering setting up a seperate database that is dedicated for testing, I have decided to use [SinonJS](http://sinonjs.org/docs/#stubs) and  `stub` the `sequelize` methods that inserts data into the database. This way, I don't have to worry about wiping the tables in my database when running tests consecutively. On top of that, having standalone tests is always better than having tests that are tightly coupled with external resources.
